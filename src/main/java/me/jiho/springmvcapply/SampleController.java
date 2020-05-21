@@ -1,24 +1,29 @@
 package me.jiho.springmvcapply;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.PushBuilder;
+import java.util.Map;
 
 @Controller
 public class SampleController {
 
-    @GetHelloMapping
-    @ResponseBody // 없으면 이름에 해당하는 뷰로 돌아간다, 있으면 문자열을 응답으로 보냄
-    public String hello() {
-        return "hello";
+    @GetMapping("/events/form")
+    public String evnetsForm(Model model) {
+        model.addAttribute("event", new Event());
+        return "events/form";
     }
 
-    @PostMapping("/hello")
+    @PostMapping("/events")
     @ResponseBody
-    public String helloPost() {
-        return "hellott";
+    public Event events(@RequestParam String name,
+                        @RequestParam Integer id) {
+        Event event = new Event();
+        event.setName(name);
+        event.setId(id);
+        return event;
     }
-
 }

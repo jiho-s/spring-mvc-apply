@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -25,9 +24,11 @@ class SampleControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void helloTest() throws Exception{
-        mockMvc.perform(get("/hello"))
+    public void eventsTest() throws Exception{
+        mockMvc.perform(post("/events?name=hahaha&id=1"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value("hahaha"))
+                .andExpect(jsonPath("id").value("1"));
     }
 }
