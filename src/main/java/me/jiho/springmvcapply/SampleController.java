@@ -1,15 +1,14 @@
 package me.jiho.springmvcapply;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.PushBuilder;
-import javax.validation.Valid;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 public class SampleController {
@@ -21,14 +20,22 @@ public class SampleController {
     }
 
     @PostMapping("/events")
-    @ResponseBody
-    public Event events(@Validated(Event.ValidateID.class) @ModelAttribute Event event, BindingResult bindingResult) {
+    public String events(@Validated @ModelAttribute Event event,
+                         BindingResult bindingResult,
+                         Model model) {
         if (bindingResult.hasErrors()) {
-            System.out.println("==================================");
-            bindingResult.getAllErrors().forEach(c -> {
-                System.out.println(c.toString());
-            });
+            return "events/form";
         }
-        return event;
+
+
+        //.. 데이터 베이스에 저장
+        return "redirect:/events/list";
+    }
+
+    @GetMapping("/events/list")
+    public String getEvents(Model model) {
+        //... 데이터 베이스에서 리스트를 읽어옴
+        model.addAttribute(eventList);
+        return "/events/list"
     }
 }

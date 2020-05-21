@@ -7,10 +7,10 @@ public class Event {
     interface ValidateID {}
     interface ValidateName {}
 
-    @Min(value = 0, groups = ValidateID.class)
+    @Min(0)
     private Integer id;
 
-    @NotBlank(groups = ValidateName.class)
+    @NotBlank
     private String name;
 
     public Integer getId() {
