@@ -5,6 +5,7 @@
     <title>Creat New Event</title>
 </head>
 <body>
+
 <form action="#" th:action="@{/events}" method="post" th:object="${event}">
     <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Incorrect data</p>
     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect data</p>
