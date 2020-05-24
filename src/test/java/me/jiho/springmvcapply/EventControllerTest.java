@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest //mock을 주입해준다
-class SampleControllerTest {
+class EventControllerTest {
 
     @Autowired
     MockMvc mockMvc;
